@@ -1,44 +1,33 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
-  FiCode, FiDatabase, FiCloud, FiGitBranch, FiSmartphone, FiShield
-} from 'react-icons/fi'
-import {
-  SiReact, SiNodedotjs, SiTypescript, SiPython, SiDocker,
-  SiPostgresql, SiMongodb, SiTailwindcss, SiGit,
-  SiNextdotjs, SiGraphql, SiRedis, SiLinux, SiFirebase, SiKubernetes
+  SiReact, SiNodedotjs, SiDocker, SiPostgresql, SiGit,
+  SiFirebase, SiLinux, SiMysql, SiBootstrap,
+  SiPhp, SiLaravel, SiNuxt
 } from 'react-icons/si'
-
-const skills = [
-  { name: 'React / Next.js', pct: 92 },
-  { name: 'Node.js / Express', pct: 88 },
-  { name: 'TypeScript', pct: 85 },
-  { name: 'Python', pct: 80 },
-  { name: 'PostgreSQL / MongoDB', pct: 82 },
-  { name: 'DevOps / Docker / AWS', pct: 75 },
-]
+import { useLang } from '../context/LanguageContext'
+import t from '../i18n/translations'
 
 const techStack = [
+  { icon: <SiPhp color="#7c7cb5" />, label: 'PHP' },
+  { icon: <SiLaravel color="#ff2d20" />, label: 'Laravel' },
   { icon: <SiReact color="#61dafb" />, label: 'React' },
-  { icon: <SiNextdotjs color="#fff" />, label: 'Next.js' },
-  { icon: <SiTypescript color="#3178c6" />, label: 'TypeScript' },
+  { icon: <SiNuxt color="#4fc08d" />, label: 'Nuxt.js' },
   { icon: <SiNodedotjs color="#6cc24a" />, label: 'Node.js' },
-  { icon: <SiPython color="#ffd43b" />, label: 'Python' },
-  { icon: <SiGraphql color="#e10098" />, label: 'GraphQL' },
-  { icon: <SiPostgresql color="#336791" />, label: 'Postgres' },
-  { icon: <SiMongodb color="#4db33d" />, label: 'MongoDB' },
-  { icon: <SiRedis color="#d82c20" />, label: 'Redis' },
+  { icon: <SiMysql color="#4479a1" />, label: 'MySQL' },
+  { icon: <SiBootstrap color="#7952b3" />, label: 'Bootstrap' },
   { icon: <SiDocker color="#2496ed" />, label: 'Docker' },
-  { icon: <SiKubernetes color="#326ce5" />, label: 'K8s' },
-  { icon: <SiFirebase color="#ffca28" />, label: 'Firebase' },
-  { icon: <SiTailwindcss color="#38bdf8" />, label: 'Tailwind' },
   { icon: <SiGit color="#f34f29" />, label: 'Git' },
+  { icon: <SiFirebase color="#ffca28" />, label: 'Firebase' },
+  { icon: <SiPostgresql color="#336791" />, label: 'PostgreSQL' },
   { icon: <SiLinux color="#fcc624" />, label: 'Linux' },
 ]
 
 export default function Skills() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { lang } = useLang()
+  const tr = t[lang].skills
 
   return (
     <section className="skills section" id="skills" ref={ref}>
@@ -50,20 +39,20 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: 56, textAlign: 'center' }}
         >
-          <p className="section-label" style={{ justifyContent: 'center' }}>My Arsenal</p>
+          <p className="section-label" style={{ justifyContent: 'center' }}>{tr.label}</p>
           <h2 className="section-title">
-            Skills &amp; <span className="gradient-text">Technologies</span>
+            {tr.title} <span className="gradient-text">{tr.titleHighlight}</span>
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}>
-            Technologies I use to craft exceptional digital experiences
+            {tr.subtitle}
           </p>
         </motion.div>
 
         <div className="skills-layout">
           {/* Skill Bars */}
           <div className="skills-bars">
-            <h3>Core Proficiencies</h3>
-            {skills.map((skill, i) => (
+            <h3>{tr.coreTitle}</h3>
+            {tr.bars.map((skill, i) => (
               <motion.div
                 key={skill.name}
                 className="skill-bar-item"
@@ -89,7 +78,7 @@ export default function Skills() {
 
           {/* Tech Stack Grid */}
           <div className="skills-stack">
-            <h3>Tech Stack</h3>
+            <h3>{tr.stackTitle}</h3>
             <div className="tech-stack-grid">
               {techStack.map((tech, i) => (
                 <motion.div

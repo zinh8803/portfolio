@@ -1,18 +1,23 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { FiMail, FiGithub, FiLinkedin, FiSend, FiMapPin, FiPhone } from 'react-icons/fi'
-import { FiTwitter } from 'react-icons/fi'
+import { FiMail, FiGithub, FiLinkedin, FiSend, FiPhone } from 'react-icons/fi'
+import { useLang } from '../context/LanguageContext'
+import t from '../i18n/translations'
 
-const contactLinks = [
-  { icon: <FiMail />, label: 'Email', value: 'alex@example.com', href: 'mailto:alex@example.com' },
-  { icon: <FiLinkedin />, label: 'LinkedIn', value: 'linkedin.com/in/alexnguyen', href: '#' },
-  { icon: <FiGithub />, label: 'GitHub', value: 'github.com/alexnguyen', href: '#' },
-  { icon: <FiMapPin />, label: 'Location', value: 'Ho Chi Minh City, Vietnam', href: '#' },
-]
+const ICONS = {
+  Email: <FiMail />,
+  LinkedIn: <FiLinkedin />,
+  GitHub: <FiGithub />,
+  Phone: <FiPhone />,
+  'Điện thoại': <FiPhone />,
+}
 
 export default function Contact() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { lang } = useLang()
+  const tr = t[lang].contact
+
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
 
@@ -35,12 +40,12 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: 56, textAlign: 'center' }}
         >
-          <p className="section-label" style={{ justifyContent: 'center' }}>Get In Touch</p>
+          <p className="section-label" style={{ justifyContent: 'center' }}>{tr.label}</p>
           <h2 className="section-title">
-            Let's <span className="gradient-text">Work Together</span>
+            {tr.title} <span className="gradient-text">{tr.titleHighlight}</span>
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}>
-            Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing.
+            {tr.subtitle}
           </p>
         </motion.div>
 
@@ -52,16 +57,15 @@ export default function Contact() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3>Get in <span className="gradient-text">Touch</span></h3>
-            <p>
-              I'm currently open to full-time opportunities and exciting freelance projects.
-              Whether you have a question or just want to say hello — my inbox is always open!
-            </p>
+            <h3>
+              {tr.infoTitle} <span className="gradient-text">{tr.infoTitleHighlight}</span>
+            </h3>
+            <p>{tr.infoDesc}</p>
             <div className="contact-links">
-              {contactLinks.map(link => (
-                <a href={link.href} className="contact-link" key={link.label}>
+              {tr.links.map(link => (
+                <a href={link.href} className="contact-link" key={link.label} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
                   <div className="contact-link-icon">
-                    {link.icon}
+                    {ICONS[link.label] || <FiMail />}
                   </div>
                   <div className="contact-link-content">
                     <p className="contact-link-label">{link.label}</p>
@@ -80,28 +84,26 @@ export default function Contact() {
           >
             <form className="contact-form" onSubmit={handleSubmit}>
               {sent && (
-                <div className="form-success">
-                  ✅ Message sent! I'll get back to you soon.
-                </div>
+                <div className="form-success">{tr.form.success}</div>
               )}
               <div className="form-row">
                 <div className="form-group">
-                  <label>Name</label>
+                  <label>{tr.form.name}</label>
                   <input
                     type="text"
                     name="name"
-                    placeholder="John Doe"
+                    placeholder={tr.form.namePh}
                     value={form.name}
                     onChange={handleChange}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>{tr.form.email}</label>
                   <input
                     type="email"
                     name="email"
-                    placeholder="john@example.com"
+                    placeholder={tr.form.emailPh}
                     value={form.email}
                     onChange={handleChange}
                     required
@@ -109,28 +111,28 @@ export default function Contact() {
                 </div>
               </div>
               <div className="form-group">
-                <label>Subject</label>
+                <label>{tr.form.subject}</label>
                 <input
                   type="text"
                   name="subject"
-                  placeholder="Project Inquiry"
+                  placeholder={tr.form.subjectPh}
                   value={form.subject}
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="form-group">
-                <label>Message</label>
+                <label>{tr.form.message}</label>
                 <textarea
                   name="message"
-                  placeholder="Tell me about your project..."
+                  placeholder={tr.form.messagePh}
                   value={form.message}
                   onChange={handleChange}
                   required
                 />
               </div>
-              <button type="submit" className="btn-primary form-submit">
-                <span>Send Message</span>
+              <button type="submit" className="btn-primary form-submit" id="contact-submit">
+                <span>{tr.form.submit}</span>
                 <FiSend size={17} />
               </button>
             </form>

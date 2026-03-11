@@ -335,6 +335,43 @@ body {
   transition: var(--transition);
 }
 
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  background: rgba(108, 99, 255, 0.1);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+
+.lang-toggle:hover {
+  background: rgba(108, 99, 255, 0.2);
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+  transform: scale(1.05);
+}
+
+.lang-toggle-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .lang-toggle:not(.lang-toggle-mobile) {
+    display: none;
+  }
+  .lang-toggle-mobile {
+    display: flex;
+  }
+}
+
 /* ============================================
    HERO
    ============================================ */
@@ -982,6 +1019,8 @@ body {
 }
 .timeline-badge.work { background: rgba(108, 99, 255, 0.2); color: var(--accent-purple); }
 .timeline-badge.edu { background: rgba(0, 245, 212, 0.2); color: var(--accent-cyan); }
+.timeline-badge.award { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+.timeline-badge.cert { background: rgba(96, 165, 250, 0.2); color: #60a5fa; }
 
 /* ============================================
    CONTACT
@@ -1047,7 +1086,6 @@ body {
   flex-shrink: 0;
 }
 
-.contact-link-content {}
 .contact-link-label {
   font-size: 0.75rem;
   color: var(--text-muted);

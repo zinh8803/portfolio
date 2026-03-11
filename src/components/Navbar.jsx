@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-scroll'
-import { FiCode, FiMenu, FiX } from 'react-icons/fi'
-
-const navLinks = [
-  { label: 'About', to: 'about' },
-  { label: 'Skills', to: 'skills' },
-  { label: 'Projects', to: 'projects' },
-  { label: 'Experience', to: 'experience' },
-  { label: 'Contact', to: 'contact' },
-]
+import { FiMenu, FiX } from 'react-icons/fi'
+import { useLang } from '../context/LanguageContext'
+import t from '../i18n/translations'
 
 export default function Navbar() {
+  const { lang, toggle } = useLang()
+  const tr = t[lang].nav
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -20,12 +16,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const navLinks = [
+    { label: tr.about, to: 'about' },
+    { label: tr.skills, to: 'skills' },
+    { label: tr.projects, to: 'projects' },
+    { label: tr.experience, to: 'experience' },
+    { label: tr.contact, to: 'contact' },
+  ]
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <div className="navbar-inner">
           <Link to="hero" smooth duration={500} className="navbar-logo" style={{ cursor: 'pointer' }}>
-            &lt;alex.dev /&gt;
+            &lt;vinh.dev /&gt;
           </Link>
 
           <ul className="navbar-links">
@@ -44,6 +48,15 @@ export default function Navbar() {
               </li>
             ))}
             <li>
+              <button
+                onClick={toggle}
+                className="lang-toggle"
+                aria-label="Toggle language"
+              >
+                {lang === 'vi' ? '🇬🇧 EN' : '🇻🇳 VI'}
+              </button>
+            </li>
+            <li>
               <Link
                 to="contact"
                 smooth
@@ -51,18 +64,29 @@ export default function Navbar() {
                 offset={-72}
                 className="navbar-cta"
               >
-                Hire Me
+                {tr.hire}
               </Link>
             </li>
           </ul>
 
-          <button
-            className="hamburger"
-            onClick={() => setMobileOpen(v => !v)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <FiX size={22} color="var(--text-primary)" /> : <FiMenu size={22} color="var(--text-primary)" />}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <button
+              onClick={toggle}
+              className="lang-toggle lang-toggle-mobile"
+              aria-label="Toggle language"
+            >
+              {lang === 'vi' ? '🇬🇧 EN' : '🇻🇳 VI'}
+            </button>
+            <button
+              className="hamburger"
+              onClick={() => setMobileOpen(v => !v)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen
+                ? <FiX size={22} color="var(--text-primary)" />
+                : <FiMenu size={22} color="var(--text-primary)" />}
+            </button>
+          </div>
         </div>
       </div>
 

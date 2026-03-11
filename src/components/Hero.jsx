@@ -2,22 +2,29 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-scroll'
 import { FiDownload, FiArrowDown } from 'react-icons/fi'
-
-const TYPED_WORDS = [
-  'Full Stack Developer',
-  'UI/UX Enthusiast',
-  'Cloud Architect',
-  'Open Source Contributor',
-]
+import { useLang } from '../context/LanguageContext'
+import t from '../i18n/translations'
 
 export default function Hero() {
+  const { lang } = useLang()
+  const tr = t[lang].hero
+
   const [wordIndex, setWordIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [charIndex, setCharIndex] = useState(0)
 
+  // Reset typing when language changes
   useEffect(() => {
-    const current = TYPED_WORDS[wordIndex]
+    setWordIndex(0)
+    setDisplayed('')
+    setIsDeleting(false)
+    setCharIndex(0)
+  }, [lang])
+
+  useEffect(() => {
+    const words = tr.typedWords
+    const current = words[wordIndex]
     const speed = isDeleting ? 60 : 100
 
     const timeout = setTimeout(() => {
@@ -32,13 +39,13 @@ export default function Hero() {
         setCharIndex(i => i - 1)
         if (charIndex - 1 === 0) {
           setIsDeleting(false)
-          setWordIndex(i => (i + 1) % TYPED_WORDS.length)
+          setWordIndex(i => (i + 1) % words.length)
         }
       }
     }, speed)
 
     return () => clearTimeout(timeout)
-  }, [charIndex, isDeleting, wordIndex])
+  }, [charIndex, isDeleting, wordIndex, lang, tr.typedWords])
 
   return (
     <section className="hero" id="hero">
@@ -58,7 +65,7 @@ export default function Hero() {
             className="hero-greeting"
           >
             <span className="dot" />
-            Available for work — Let's build something great
+            {tr.available}
           </motion.div>
 
           <motion.h1
@@ -67,8 +74,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="hero-name"
           >
-            Hi, I'm{' '}
-            <span className="gradient-text">Alex Nguyen</span>
+            {tr.greeting}{' '}
+            <span className="gradient-text">{tr.name}</span>
           </motion.h1>
 
           <motion.div
@@ -87,9 +94,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.45 }}
             className="hero-desc"
           >
-            I craft high-performance web applications with modern technologies.
-            Passionate about clean code, stunning UIs, and scalable architecture.
-            Turning complex problems into elegant solutions.
+            {tr.desc}
           </motion.p>
 
           <motion.div
@@ -99,14 +104,14 @@ export default function Hero() {
             className="hero-buttons"
           >
             <Link to="projects" smooth duration={600} offset={-72}>
-              <button className="btn-primary">
-                <span>View My Work</span>
+              <button className="btn-primary" id="hero-view-work">
+                <span>{tr.viewWork}</span>
                 <FiArrowDown size={18} />
               </button>
             </Link>
-            <a href="/resume.pdf" download className="btn-outline">
+            <a href="/resume.pdf" download className="btn-outline" id="hero-download-cv">
               <FiDownload size={17} />
-              Download CV
+              {tr.downloadCv}
             </a>
           </motion.div>
 
@@ -116,12 +121,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="hero-stats"
           >
-            {[
-              { num: '3+', label: 'Years Experience' },
-              { num: '40+', label: 'Projects Done' },
-              { num: '20+', label: 'Happy Clients' },
-              { num: '99%', label: 'Satisfaction' },
-            ].map(s => (
+            {tr.stats.map(s => (
               <div className="hero-stat" key={s.label}>
                 <span className="hero-stat-num">{s.num}</span>
                 <span className="hero-stat-label">{s.label}</span>
@@ -143,17 +143,17 @@ export default function Hero() {
 
             <div className="hero-badge">
               <span className="badge-icon">⚡</span>
-              <span style={{ color: 'var(--text-primary)' }}>React Expert</span>
+              <span style={{ color: 'var(--text-primary)' }}>{tr.badge1.replace('⚡ ', '')}</span>
             </div>
 
             <div className="hero-badge" style={{ animationDelay: '-2s' }}>
               <span className="badge-icon">🏆</span>
-              <span style={{ color: 'var(--text-primary)' }}>Top Rated Dev</span>
+              <span style={{ color: 'var(--text-primary)' }}>{tr.badge2.replace('🏆 ', '')}</span>
             </div>
 
             <div className="hero-badge" style={{ animationDelay: '-0.5s' }}>
-              <span className="badge-icon badge-green">✨</span>
-              <span style={{ color: 'var(--accent-cyan)' }}>Open to Work</span>
+              <span className="badge-icon">✨</span>
+              <span style={{ color: 'var(--accent-cyan)' }}>{tr.badge3.replace('✨ ', '')}</span>
             </div>
           </motion.div>
         </div>
