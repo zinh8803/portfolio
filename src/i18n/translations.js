@@ -43,7 +43,7 @@ const t = {
       info: [
         { label: 'Họ và tên', value: 'Ngô Quốc Vinh' },
         { label: 'Địa chỉ', value: 'Quận 7, TP.HCM' },
-        { label: 'Email', value: 'ngaquocvinh2003@gmail.com' },
+        { label: 'Email', value: 'ngoquocvinh2003@gmail.com' },
         { label: 'Ngôn ngữ', value: 'Tiếng Việt, Tiếng Anh' },
         { label: 'Trường', value: 'Đại học Công nghệ Sài Gòn' },
         { label: 'Trạng thái', value: '🟢 Sẵn sàng làm việc' },
@@ -151,7 +151,7 @@ const t = {
       infoTitleHighlight: 'tôi',
       infoDesc: 'Tôi hiện đang tìm kiếm vị trí full-time hoặc internship. Dù bạn có câu hỏi hay chỉ muốn chào hỏi — hộp thư của tôi luôn mở!',
       links: [
-        { label: 'Email', value: 'ngaquocvinh2003@gmail.com', href: 'mailto:ngaquocvinh2003@gmail.com' },
+        { label: 'Email', value: 'ngoquocvinh2003@gmail.com', href: 'mailto:ngoquocvinh2003@gmail.com' },
         { label: 'LinkedIn', value: 'linkedin.com/in/vinh-ngô-quôc', href: 'https://www.linkedin.com/in/vinh-ng%C3%B4-qu%E1%BA%A5c-02a081350/' },
         { label: 'GitHub', value: 'github.com/zinh8803', href: 'https://github.com/zinh8803' },
         { label: 'Điện thoại', value: '0799 117 848', href: 'tel:0799117848' },
@@ -216,7 +216,7 @@ const t = {
       info: [
         { label: 'Full Name', value: 'Ngo Quoc Vinh' },
         { label: 'Location', value: 'District 7, Ho Chi Minh City' },
-        { label: 'Email', value: 'ngaquocvinh2003@gmail.com' },
+        { label: 'Email', value: 'ngoquocvinh2003@gmail.com' },
         { label: 'Languages', value: 'Vietnamese, English (TOEIC 585)' },
         { label: 'University', value: 'Saigon Technology University' },
         { label: 'Status', value: '🟢 Open to Work' },
@@ -320,7 +320,7 @@ const t = {
       infoTitleHighlight: 'Touch',
       infoDesc: "I'm currently looking for full-time positions or internship opportunities. Whether you have a question or just want to say hello — my inbox is always open!",
       links: [
-        { label: 'Email', value: 'ngaquocvinh2003@gmail.com', href: 'mailto:ngaquocvinh2003@gmail.com' },
+        { label: 'Email', value: 'ngoquocvinh2003@gmail.com', href: 'mailto:ngoquocvinh2003@gmail.com' },
         { label: 'LinkedIn', value: 'linkedin.com/in/vinh-ngo', href: 'https://www.linkedin.com/in/vinh-ng%C3%B4-qu%E1%BA%A5c-02a081350/' },
         { label: 'GitHub', value: 'github.com/zinh8803', href: 'https://github.com/zinh8803' },
         { label: 'Phone', value: '+84 799 117 848', href: 'tel:0799117848' },
