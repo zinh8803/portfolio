@@ -2,7 +2,7 @@ const t = {
   vi: {
     // Navbar
     nav: {
-      about: 'Về tôi',
+      about: 'Về tôiiiiiiiiiiiiiiiiiiiiiiiiiii',
       skills: 'Kỹ năng',
       projects: 'Dự án',
       experience: 'Kinh nghiệm',
